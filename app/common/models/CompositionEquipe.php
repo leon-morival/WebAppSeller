@@ -1,5 +1,5 @@
 <?php
-
+namespace WebAppSeller\Models;
 class CompositionEquipe extends \Phalcon\Mvc\Model
 {
 

@@ -1,5 +1,5 @@
 <?php
-
+namespace WebAppSeller\Models;
 class ChefDeProjet extends \Phalcon\Mvc\Model
 {
 

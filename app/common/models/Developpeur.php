@@ -1,5 +1,5 @@
 <?php
-
+namespace WebAppSeller\Models;
 class Developpeur extends \Phalcon\Mvc\Model
 {
 

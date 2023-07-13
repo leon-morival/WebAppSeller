@@ -1,2 +1,17 @@
-<?php
-echo "test";
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Libelle</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($applications as $application) { ?>
+            <tr>
+                <td><?= $application->getId() ?></td>
+                <td><?= $application->getLibelle() ?></td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
