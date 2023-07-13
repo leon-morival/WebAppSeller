@@ -1,5 +1,7 @@
 <?php
 namespace WebAppSeller\Models;
+use Phalcon\Validation\Validator\InclusionIn;
+
 class Composant extends \Phalcon\Mvc\Model
 {
 
@@ -53,6 +55,11 @@ class Composant extends \Phalcon\Mvc\Model
      * @param string $type
      * @return $this
      */
+
+    const _TYPE_1_FRONTEND_ = 1;
+    const _TYPE_2_BACKEND_ = 2;
+    const _TYPE_3_DATABASE_ = 3;
+
     public function setType($type)
     {
         $this->type = $type;
@@ -217,5 +224,23 @@ class Composant extends \Phalcon\Mvc\Model
     {
         return parent::findFirst($parameters);
     }
-
+    public function validation(): bool
+    {
+        $validator = new Validation();
+        $validator->add(
+            'type',
+            new InclusionIn(
+                [
+                    'template' => 'Le champ :field avoir une valeur comprise entre 0 et 5',
+                    'message' => 'Le champ :field doit avoir une valeur comprise entre 0 et 5',
+                    'domain' => [
+                        self::_TYPE_1_FRONTEND_,
+                        self::_TYPE_2_BACKEND_,
+                        self::_TYPE_3_DATABASE_,
+                    ]
+                ]
+            )
+        );
+        return $this->validate($validator);
+    }
 }

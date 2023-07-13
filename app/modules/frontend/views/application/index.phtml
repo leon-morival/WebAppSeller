@@ -7,7 +7,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($applications as $application) { ?>
+        <?php foreach ($this->view->applications as $application) { ?>
             <tr>
                 <td><?= $application->getId() ?></td>
                 <td><?= $application->getLibelle() ?></td>

@@ -5,14 +5,14 @@ namespace WebAppSeller\Modules\Frontend\Controllers;
 
 use WebAppSeller\Models\Application;
 
-class ApplicationController extends Controller
+class ApplicationController extends ControllerBase
 {
     public function indexAction()
     {
         // Fetch all applications
         $applications = Application::find();
 
-        // Pass the applications data to the view
-        $this->view->applications = $applications;
+
+        $this->view->setVar('applications',$applications);
     }
 }

@@ -1,0 +1,27 @@
+
+<div class="container text-center">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Competence</th>
+            <th scope="col">Indice de production</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Nom</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->view->developpeurs as $developpeur) { ?>
+            <tr>
+                <td><?= $developpeur->getId() ?></td>
+                <td><?= $developpeur->getCompetence() ?></td>
+
+                <td><?= $developpeur->getIndiceProduction() ?></td>
+                <td><?= $developpeur->getCollaborateur()->getPrenom() ?></td>
+                <td><?= $developpeur->getCollaborateur()->getNom() ?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+
+</div>
