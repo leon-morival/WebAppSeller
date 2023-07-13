@@ -104,7 +104,7 @@ class ChefDeProjet extends \Phalcon\Mvc\Model
         $this->setSource("chef_de_projet");
         $this->hasMany('id', 'Equipe', 'id_chef_de_projet', ['alias' => 'Equipe']);
         $this->hasMany('id', 'Projet', 'id_chef_de_projet', ['alias' => 'Projet']);
-        $this->belongsTo('id_collaborateur', '\Collaborateur', 'id', ['alias' => 'Collaborateur']);
+        $this->belongsTo('id_collaborateur', Collaborateur::class, 'id', ['alias' => 'Collaborateur']);
     }
 
     /**

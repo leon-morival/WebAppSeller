@@ -1,0 +1,27 @@
+
+<div class="container text-center">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+
+            <th scope="col">Boost de production</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Nom</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->view->chefdeprojets as $chefdeprojet) { ?>
+            <tr>
+                <td><?= $chefdeprojet->getId() ?></td>
+
+
+                <td><?= $chefdeprojet->getBoostProduction() ?></td>
+                <td><?= $chefdeprojet->getCollaborateur()->getPrenom() ?></td>
+                <td><?= $chefdeprojet->getCollaborateur()->getNom() ?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+
+</div>

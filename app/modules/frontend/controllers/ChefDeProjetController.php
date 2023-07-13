@@ -3,19 +3,19 @@ declare(strict_types=1);
 
 namespace WebAppSeller\Modules\Frontend\Controllers;
 
-use WebAppSeller\Models\Developpeur;
-use WebAppSeller\Models\Collaborateur;
+use WebAppSeller\Models\ChefDeProjet;
 
 
 
-class DeveloppeurController extends ControllerBase
+
+class ChefDeProjetController extends ControllerBase
 {
     public function indexAction()
     {
         // Fetch all applications
-        $chefDeProjets = Developpeur::find(['include' => 'Collaborateur']);
+        $chefDeProjets = ChefDeProjet::find(['include' => 'Collaborateur']);
 
 
-        $this->view->setVar('developpeurs',$chefDeProjets);
+        $this->view->setVar('chefdeprojets',$chefDeProjets);
     }
 }
