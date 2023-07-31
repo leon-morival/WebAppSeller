@@ -1,0 +1,26 @@
+<div class="container text-center">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom de l'équipe</th>
+            <th scope="col">Chef d'équipe</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->view->equipes as $equipe) { ?>
+
+            <tr>
+                <td><?= $equipe->getId() ?></td>
+                <td><?= $equipe->getLibelle() ?></td>
+                <td><?= $equipe->getChefDeProjet()->get ?></td>
+
+            </tr>
+
+        <?php } ?>
+        </tbody>
+    </table>
+
+</div>

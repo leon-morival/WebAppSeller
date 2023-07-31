@@ -1,17 +1,22 @@
-
-<table>
-    <thead>
+<div class="container text-center">
+    <table class="table table-striped">
+        <thead>
         <tr>
-            <th>ID</th>
-            <th>Libelle</th>
+            <th scope="col">ID</th>
+            <th scope="col">Libelle</th>
+
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         <?php foreach ($this->view->applications as $application) { ?>
             <tr>
                 <td><?= $application->getId() ?></td>
                 <td><?= $application->getLibelle() ?></td>
+
+
             </tr>
         <?php } ?>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+</div>
