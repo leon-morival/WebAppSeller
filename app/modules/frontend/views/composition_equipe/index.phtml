@@ -1,0 +1,24 @@
+
+<div class="container text-center mt-2">
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Développeur</th>
+            <th scope="col">Nom de l'équipe</th>
+            <th scope="col">Chef de Projet</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->view->compositions as $composition) { ?>
+            <tr>
+                <td><?= $composition->getDeveloppeur()->getCollaborateur()->getPrenom() ?></td>
+                <td><?= $composition->getEquipe()->getLibelle() ?></td>
+                <td><?= $composition->getEquipe()->getChefDeProjet()->getCollaborateur()->getPrenom() ?></td>
+
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+
+</div>

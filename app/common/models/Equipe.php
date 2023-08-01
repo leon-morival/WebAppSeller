@@ -103,7 +103,7 @@ class Equipe extends \Phalcon\Mvc\Model
         $this->setSchema("ecf");
         $this->setSource("equipe");
         $this->hasMany('id', 'CompositionEquipe', 'id_equipe', ['alias' => 'CompositionEquipe']);
-        $this->belongsTo('id_chef_de_projet', '\ChefDeProjet', 'id', ['alias' => 'ChefDeProjet']);
+        $this->belongsTo('id_chef_de_projet', ChefDeProjet::class, 'id', ['alias' => 'ChefDeProjet']);
     }
 
     /**
