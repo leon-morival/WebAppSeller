@@ -1,0 +1,24 @@
+<div class="container text-center mt-2">
+    <table class="table table-striped
+    table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Raison Sociale</th>
+            <th scope="col">Ridet</th>
+            <th scope="col">Ssi2?</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->view->clients as $client) { ?>
+            <tr>
+                <td><?= $client->getRaisonSociale() ?></td>
+                <td><?= $client->getRidet() ?></td>
+                <td><?= ($client->getSsi2() === '0' ) ? "Non" : "Oui"  ?></td>
+
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+
+</div>
