@@ -28,4 +28,6 @@ foreach ($application->getModules() as $key => $module) {
         'action' => 2,
         'params' => 3
     ]);
+
+
 }

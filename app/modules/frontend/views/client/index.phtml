@@ -6,6 +6,7 @@
             <th scope="col">Raison Sociale</th>
             <th scope="col">Ridet</th>
             <th scope="col">Ssi2?</th>
+            <th scope="col">Delete</th>
 
         </tr>
         </thead>
@@ -14,11 +15,37 @@
             <tr>
                 <td><?= $client->getRaisonSociale() ?></td>
                 <td><?= $client->getRidet() ?></td>
-                <td><?= ($client->getSsi2() === '0' ) ? "Non" : "Oui"  ?></td>
-
+                <td><?= ($client->getSsi2() === '0' ) ? "Non" : "Oui" ?></td>
+                <td>
+                    <form action="<?= $this->url->get('WebAppSeller/client/delete') ?>" method="post">
+                        <input type="hidden" name="id" value="<?= $client->getId() ?>">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         <?php } ?>
         </tbody>
     </table>
+
+</div>
+<div class="container text-center mt-2">
+    <form action="<?= $this->url->get('WebAppSeller/client/save') ?>" method="post">
+        <div class="form-group">
+            <label for="raison_sociale">Raison Sociale</label>
+            <input type="text" name="raison_sociale" class="form-control" id="raison_sociale">
+        </div>
+        <div class="form-group">
+            <label for="ridet">Ridet</label>
+            <input type="text" name="ridet" class="form-control" id="ridet">
+        </div>
+        <div class="form-group">
+            <label for="ssi2">Ssi2?</label>
+            <select name="ssi2" class="form-control" id="ssi2">
+                <option value="0">Non</option>
+                <option value="1">Oui</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
 </div>

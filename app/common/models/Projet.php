@@ -282,11 +282,11 @@ class Projet extends \Phalcon\Mvc\Model
     {
         $this->setSchema("ecf");
         $this->setSource("projet");
-        $this->belongsTo('id_application', '\Application', 'id', ['alias' => 'Application']);
-        $this->belongsTo('id_chef_de_projet', '\ChefDeProjet', 'id', ['alias' => 'ChefDeProjet']);
-        $this->belongsTo('id_composant', '\Composant', 'id', ['alias' => 'Composant']);
-        $this->belongsTo('id_developpeur', '\Developpeur', 'id', ['alias' => 'Developpeur']);
-        $this->belongsTo('id_module', '\Module', 'id', ['alias' => 'Module']);
+        $this->belongsTo('id_application', Application::class, 'id', ['alias' => 'Application']);
+        $this->belongsTo('id_chef_de_projet', ChefDeProjet::class, 'id', ['alias' => 'ChefDeProjet']);
+        $this->belongsTo('id_composant', Composant::class, 'id', ['alias' => 'Composant']);
+        $this->belongsTo('id_developpeur', Developpeur::class, 'id', ['alias' => 'Developpeur']);
+        $this->belongsTo('id_module', Module::class, 'id', ['alias' => 'Module']);
     }
 
     /**
