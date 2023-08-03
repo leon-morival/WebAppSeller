@@ -1,0 +1,27 @@
+<div class="container text-center mt-2 w-50">
+    <table class="table table-striped
+    table-dark">
+        <thead>
+        <tr>
+
+            <th scope="col">prenom</th>
+            <th scope="col">nom</th>
+            <th scope="col">prime d'embauche</th>
+            <th scope="col">niveau de compétence</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->view->collaborateurs as $collaborateur) { ?>
+            <tr>
+
+                <td><?= $collaborateur->getPrenom() ?></td>
+
+                <td><?= $collaborateur->getNom() ?></td>
+                <td><?= $collaborateur->getPrimeEmbauche() ?></td>
+                <td><?= $collaborateur->getNiveauCompetence() ?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+
+</div>

@@ -1,0 +1,22 @@
+<!-- edit.phtml -->
+<div class="container text-center mt-2">
+    <form action="<?= $this->url->get('WebAppSeller/client/update') ?>" method="post">
+        <input type="hidden" name="id" value="<?= $client->getId() ?>">
+        <div class="form-group">
+            <label for="raison_sociale">Raison Sociale</label>
+            <input type="text" name="raison_sociale" class="form-control" id="raison_sociale" value="<?= $client->getRaisonSociale() ?>">
+        </div>
+        <div class="form-group">
+            <label for="ridet">Ridet</label>
+            <input type="text" name="ridet" class="form-control" id="ridet" pattern ='\d{9}' value="<?= $client->getRidet() ?>">
+        </div>
+        <div class="form-group">
+            <label for="ssi2">Ssi2?</label>
+            <select name="ssi2" class="form-control" id="ssi2">
+                <option value="0" <?= ($client->getSsi2() === '0') ? 'selected' : '' ?>>Non</option>
+                <option value="1" <?= ($client->getSsi2() === '1') ? 'selected' : '' ?>>Oui</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>

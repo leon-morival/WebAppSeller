@@ -133,7 +133,7 @@ class Developpeur extends \Phalcon\Mvc\Model
     {
         $this->setSchema("ecf");
         $this->setSource("developpeur");
-        $this->hasMany('id', 'CompositionEquipe', 'id_developpeur', ['alias' => 'CompositionEquipe']);
+        $this->hasMany('id', CompositionEquipe::class, 'id_developpeur', ['alias' => 'CompositionEquipe']);
         $this->hasMany('id', 'Projet', 'id_developpeur', ['alias' => 'Projet']);
         $this->belongsTo('id_collaborateur', Collaborateur::class, 'id', ['alias' => 'Collaborateur']);
 

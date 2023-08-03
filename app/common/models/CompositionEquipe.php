@@ -104,6 +104,7 @@ class CompositionEquipe extends \Phalcon\Mvc\Model
         $this->setSource("composition_equipe");
         $this->belongsTo('id_developpeur', Developpeur::class, 'id', ['alias' => 'Developpeur']);
         $this->belongsTo('id_equipe', Equipe::class, 'id', ['alias' => 'Equipe']);
+        $this->hasMany('id_equipe', Developpeur::class, 'id_equipe', ['alias' => 'Developpeurs']);
     }
 
     /**

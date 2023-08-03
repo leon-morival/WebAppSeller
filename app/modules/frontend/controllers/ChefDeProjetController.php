@@ -13,7 +13,7 @@ class ChefDeProjetController extends ControllerBase
     public function indexAction()
     {
         // Fetch all applications
-        $chefDeProjets = ChefDeProjet::find(['include' => 'Collaborateur']);
+        $chefDeProjets = ChefDeProjet::find();
 
 
         $this->view->setVar('chefdeprojets',$chefDeProjets);

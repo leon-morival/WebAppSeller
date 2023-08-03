@@ -17,7 +17,11 @@
                 <td><?= $client->getRidet() ?></td>
                 <td><?= ($client->getSsi2() === '0' ) ? "Non" : "Oui" ?></td>
                 <td>
-                    <form action="<?= $this->url->get('WebAppSeller/client/delete') ?>" method="post">
+                    <!-- Edit Link -->
+                    <a href="<?= $this->url->get('WebAppSeller/client/edit/' . $client->getId()) ?>" class="btn btn-primary">Edit</a>
+
+                    <!-- Delete Form -->
+                    <form action="<?= $this->url->get('WebAppSeller/client/delete') ?>" method="post" style="display: inline-block;">
                         <input type="hidden" name="id" value="<?= $client->getId() ?>">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
@@ -28,15 +32,15 @@
     </table>
 
 </div>
-<div class="container text-center mt-2">
+<div class="container text-center mt-2 w-50">
     <form action="<?= $this->url->get('WebAppSeller/client/save') ?>" method="post">
         <div class="form-group">
             <label for="raison_sociale">Raison Sociale</label>
-            <input type="text" name="raison_sociale" class="form-control" id="raison_sociale">
+            <input type="text" name="raison_sociale" placeholder="Exemple : CCI" class="form-control" id="raison_sociale" required>
         </div>
         <div class="form-group">
             <label for="ridet">Ridet</label>
-            <input type="text" name="ridet" class="form-control" id="ridet">
+            <input type="text" name="ridet" placeholder="Exemple : 458625872" class="form-control" id="ridet" pattern ='\d{9}'required>
         </div>
         <div class="form-group">
             <label for="ssi2">Ssi2?</label>
@@ -45,7 +49,7 @@
                 <option value="1">Oui</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary m-3">Valider</button>
     </form>
 
 </div>
