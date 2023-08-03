@@ -127,5 +127,9 @@ class Equipe extends \Phalcon\Mvc\Model
     {
         return parent::findFirst($parameters);
     }
+    public static function teamExists($team_name)
+    {
+        return self::findFirstByLibelle($team_name) !== false;
+    }
 
 }

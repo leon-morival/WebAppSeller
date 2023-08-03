@@ -129,4 +129,11 @@ class CompositionEquipe extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
+    public static function validateDeveloperCount($developerIds)
+    {
+        $numSelectedDevelopers = count($developerIds);
+        return $numSelectedDevelopers >= 1 && $numSelectedDevelopers <= 3;
+    }
+
 }
