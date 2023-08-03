@@ -1,8 +1,20 @@
+<h1 class="text-center m-5"><strong>Choisissez une équipe existante ou composez votre équipe</strong></h1>
 <div class="container mt-2">
     <div class="row">
         <?php foreach ($this->view->groupedCompositions as $teamName => $compositions) { ?>
-            <div class="col-md-4 mb-4 ">
-                <div class="card bg-cards">
+            <div class="col-md-3 mb-4 ">
+
+                <div class="card bg-cards shadow ">
+                    <div class="row">
+                        <div class="text-center col-6">
+                            <button class=" btn btn-info">Select</button>
+                        </div>
+                        <div class="text-center col-6">
+                            <button class="btn btn-danger">delete</button>
+                        </div>
+                    </div>
+
+
                     <div class="card-body text-white text-center">
                         <h1 class="card-title pb-3 border-bottom"><?= $teamName ?></h1>
                         <h4 class="card-subtitle pb-3 pt-3 border-bottom">Chef de projet : <?= $compositions[0]->getEquipe()->getChefDeProjet()->getCollaborateur()->getPrenom() ?></h4>
@@ -19,3 +31,42 @@
         <?php } ?>
     </div>
 </div>
+
+<div class="container text-center mt-2 w-75">
+    <form action="<?= $this->url->get('WebAppSeller/composition_equipe/save') ?>" method="post">
+        <div class="form-group">
+            <h2 for="team_name">Nom de l'équipe</h2>
+            <input type="text" class="form-control bg-light" name="team_name" id="team_name" required>
+        </div>
+<!--        Chef d'équipe input-->
+        <div class="form-group">
+            <h3 for="chef">Choisissez votre chef d'équipe</h3>
+            <select name="chef" class="form-control bg-light" id="chef">
+                <?php foreach ($this->view->equipes as $equipe) { ?>
+                    <option value="<?= $equipe->getIdChefDeProjet() ?>"><?= $equipe->getChefDeProjet()->getCollaborateur()->getPrenom() ?></option>
+                <?php } ?>
+            </select>
+        </div>
+<!--        Check boxs Développeurs-->
+        <div class="form-group mt-3">
+            <?php $counter = 0; ?>
+            <h2>Choisissez vos membres</h2>
+            <div class="row">
+                <?php foreach ($this->view->developpeurs as $developpeur) { ?>
+                <div class="col-md-3">
+                    <div class="form-check ">
+                        <input type="checkbox" name="developpeur[]" value="<?= $developpeur->getId() ?>" class="form-check-input" id="dev_<?= $developpeur->getId() ?>">
+                        <label class="form-check-label" for="dev_<?= $developpeur->getId() ?>"><?= $developpeur->getCollaborateur()->getPrenom() ?></label>
+                    </div>
+                </div>
+                <?php $counter++;
+                if ($counter % 4 === 0) { ?>
+            </div><div class="row">
+                <?php } ?>
+                <?php } ?>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary m-3">Valider</button>
+    </form>
+</div>
+

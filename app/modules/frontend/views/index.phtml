@@ -8,6 +8,7 @@
     <title>Phalcon PHP Framework</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" integrity="sha512-t4GWSVZO1eC8BM339Xd7Uphw5s17a86tIZIj8qRxhnKub6WoyhnrxeCIMeAqBPgdZGlCcG2PrZjMc+Wr78+5Xg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         nav .navbar-nav li a {
             color: white !important;
@@ -18,9 +19,19 @@
         .navbar-nav > .active > a {
             color: red !important;
         }
+        .bg-cards{
+            background-color: #696969;
+        }
+        .form-check-input[type=checkbox] {
+            transform: scale(1.5); /* Adjust the scale factor to make the checkbox bigger */
+        }
+
+        .form-check-label {
+            font-size: 1.5rem; /* Adjust the font size to make the text bigger */
+        }
     </style>
 </head>
-<body style="background-color: lightgrey">
+<body >
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

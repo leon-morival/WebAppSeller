@@ -23,7 +23,7 @@
                     <!-- Delete Form -->
                     <form action="<?= $this->url->get('WebAppSeller/client/delete') ?>" method="post" style="display: inline-block;">
                         <input type="hidden" name="id" value="<?= $client->getId() ?>">
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                     </form>
                 </td>
             </tr>
@@ -33,7 +33,7 @@
 
 </div>
 <div class="container text-center mt-2 w-50">
-    <form action="<?= $this->url->get('WebAppSeller/client/save') ?>" method="post">
+    <form action="<?= $this->url->get('WebAppSeller/composition_equipe/save') ?>" method="post">
         <div class="form-group">
             <label for="raison_sociale">Raison Sociale</label>
             <input type="text" name="raison_sociale" placeholder="Exemple : CCI" class="form-control" id="raison_sociale" required>
