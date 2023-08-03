@@ -4,13 +4,13 @@
         <?php foreach ($this->view->groupedCompositions as $teamName => $compositions) { ?>
             <div class="col-md-3 mb-4 ">
 
-                <div class="card bg-cards shadow ">
+                <div class="card bg-cards h-100 shadow ">
                     <div class="row">
                         <div class="text-center col-6">
                             <button class=" btn btn-info w-100 d-block">Select</button>
                         </div>
                         <div class="text-center col-6">
-                            <button class="btn btn-danger w-100 d-block">Delete</button>
+                            <button class="btn btn-danger w-100 d-block"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
 
@@ -42,7 +42,7 @@
             <h3 for="chef">Choisissez votre chef d'équipe</h3>
             <select name="chef" class="form-control bg-light" id="chef">
                 <?php foreach ($this->view->chefdeprojets as $chefdeprojet) { ?>
-                    <option value="<?= $chefdeprojet->getCollaborateur()->getId() ?>"><?= $chefdeprojet->getCollaborateur()->getPrenom() ?></option>
+                    <option value="<?= $chefdeprojet->getId() ?>"><?= $chefdeprojet->getCollaborateur()->getPrenom() ?></option>
                 <?php } ?>
             </select>
         </div>
