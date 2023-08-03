@@ -7,6 +7,7 @@ namespace WebAppSeller\Modules\Frontend\Controllers;
 use WebAppSeller\Models\CompositionEquipe;
 use WebAppSeller\Models\Developpeur;
 use WebAppSeller\Models\Equipe;
+use WebAppSeller\Models\ChefDeProjet;
 
 
 class CompositionEquipeController extends ControllerBase
@@ -32,6 +33,10 @@ class CompositionEquipeController extends ControllerBase
         //Développeur
         $developpeurs = Developpeur::find();
         $this->view->setVar('developpeurs',$developpeurs);
+
+        //Chef de Projet
+        $chefDeProjets = ChefDeProjet::find();
+        $this->view->setVar('chefdeprojets',$chefDeProjets);
     }
     public function saveAction()
     {

@@ -7,13 +7,12 @@
                 <div class="card bg-cards shadow ">
                     <div class="row">
                         <div class="text-center col-6">
-                            <button class=" btn btn-info">Select</button>
+                            <button class=" btn btn-info w-100 d-block">Select</button>
                         </div>
                         <div class="text-center col-6">
-                            <button class="btn btn-danger">delete</button>
+                            <button class="btn btn-danger w-100 d-block">Delete</button>
                         </div>
                     </div>
-
 
                     <div class="card-body text-white text-center">
                         <h1 class="card-title pb-3 border-bottom"><?= $teamName ?></h1>
@@ -42,8 +41,8 @@
         <div class="form-group">
             <h3 for="chef">Choisissez votre chef d'équipe</h3>
             <select name="chef" class="form-control bg-light" id="chef">
-                <?php foreach ($this->view->equipes as $equipe) { ?>
-                    <option value="<?= $equipe->getIdChefDeProjet() ?>"><?= $equipe->getChefDeProjet()->getCollaborateur()->getPrenom() ?></option>
+                <?php foreach ($this->view->chefdeprojets as $chefdeprojet) { ?>
+                    <option value="<?= $chefdeprojet->getCollaborateur()->getId() ?>"><?= $chefdeprojet->getCollaborateur()->getPrenom() ?></option>
                 <?php } ?>
             </select>
         </div>
