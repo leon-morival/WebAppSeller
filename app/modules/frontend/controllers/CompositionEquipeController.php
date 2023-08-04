@@ -38,6 +38,8 @@ class CompositionEquipeController extends ControllerBase
         $this->view->setVar('chefdeprojets', $chefDeProjets);
     }
 
+
+
     public function saveAction()
     {
         if ($this->request->isPost()) {

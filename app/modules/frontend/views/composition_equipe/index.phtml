@@ -7,7 +7,10 @@
                 <div class="card bg-dark h-100 shadow ">
                     <div class="row">
                         <div class="text-center col-6">
-                            <button class=" btn btn-info w-100 d-block">Select</button>
+                            <form action="/WebAppSeller/equipe_selectionne" method="post">
+                                <input type="hidden" name="equipe_id" value="<?= $compositions[0]->getEquipe()->getId() ?>">
+                                <button type="submit" class="btn btn-info w-100 d-block">Select</button>
+                            </form>
                         </div>
                         <div class="text-center col-6 ">
                             <form action="<?= $this->url->get('WebAppSeller/composition_equipe/delete') ?>" method="post" ">
@@ -70,5 +73,6 @@
         </div>
         <button type="submit" class="btn btn-primary m-3">Valider</button>
     </form>
+
 </div>
 
