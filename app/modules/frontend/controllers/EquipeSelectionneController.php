@@ -12,11 +12,6 @@ class EquipeSelectionneController extends ControllerBase
     {
         if ($this->request->isPost()) {
             $equipeId = $this->request->getPost('equipe_id', 'int');
-
-
-//            $equipe = Equipe::findFirstById($equipeId);
-
-
             $this->view->setVar('equipe', $equipeId);
         }
     }
