@@ -9,15 +9,14 @@ use WebAppSeller\Models\Developpeur;
 use WebAppSeller\Models\Equipe;
 use WebAppSeller\Models\ChefDeProjet;
 
-
 class CompositionEquipeController extends ControllerBase
 {
     public function indexAction()
     {
-        // Fetch all compositions (teams) along with their associated developers
+        // Récupère toutes les compositions (équipes) ainsi que leurs développeurs associés
         $equipes = CompositionEquipe::find(['with' => 'Developpeurs']);
 
-        // Group the developers by team name
+        // Regroupe les développeurs par nom d'équipe
         $groupedCompositions = [];
         foreach ($equipes as $equipe) {
             $teamName = $equipe->getEquipe()->getLibelle();
@@ -26,18 +25,19 @@ class CompositionEquipeController extends ControllerBase
 
         $this->view->setVar('groupedCompositions', $groupedCompositions);
 
-        //Equipe
+        // Équipe
         $equipe = Equipe::find();
-        $this->view->setVar('equipes',$equipe);
+        $this->view->setVar('equipes', $equipe);
 
-        //Développeur
+        // Développeur
         $developpeurs = Developpeur::find();
-        $this->view->setVar('developpeurs',$developpeurs);
+        $this->view->setVar('developpeurs', $developpeurs);
 
-        //Chef de Projet
+        // Chef de Projet
         $chefDeProjets = ChefDeProjet::find();
-        $this->view->setVar('chefdeprojets',$chefDeProjets);
+        $this->view->setVar('chefdeprojets', $chefDeProjets);
     }
+
     public function saveAction()
     {
         if ($this->request->isPost()) {
@@ -47,26 +47,30 @@ class CompositionEquipeController extends ControllerBase
             $chef = $this->request->getPost('chef', 'int');
             $developpeurs = $this->request->getPost('developpeur');
 
-            // Check if a team with the same name already exists
+            // Vérifie si une équipe avec le même nom existe déjà
             if (Equipe::teamExists($team_name)) {
-                echo "Une équipe avec le nom '$team_name' existe déjà." . "<br>". "<a href='/WebAppSeller/composition_equipe' class='btn btn-primary'>Retour</a>";
+                echo "Une équipe avec le nom '$team_name' existe déjà." . "<br>" . "<a href='/WebAppSeller/composition_equipe' class='btn btn-primary'>Retour</a>";
                 return;
             }
-
-            // Validate the number of selected developers
+//             Vérifie si l'un des développeurs sélectionnés appartient déjà à une autre équipe avec le même Chef de Projet
+            if (CompositionEquipe::developerExists($developpeurs, $chef)) {
+                echo "L'un des développeurs sélectionnés appartient déjà à une autre équipe avec le même Chef de Projet." . "<br>" . "<a href='/WebAppSeller/composition_equipe' class='btn btn-primary'>Retour</a>";
+                return;
+            }
+            // Valide le nombre de développeurs sélectionnés
             if (!CompositionEquipe::validateDeveloperCount($developpeurs)) {
-                echo "Veuillez sélectionner au moins un développeur et jusqu'à trois développeurs." . "<br>". "<a href='/WebAppSeller/composition_equipe' class='btn btn-primary'>Retour</a>";
+                echo "Veuillez sélectionner au moins un développeur et jusqu'à trois développeurs." . "<br>" . "<a href='/WebAppSeller/composition_equipe' class='btn btn-primary'>Retour</a>";
                 return;
             }
 
             $equipe->setIdChefDeProjet($chef);
             $equipe->setLibelle($team_name);
 
-            // Save the equipe first
+            // Sauvegarde d'abord l'équipe
             if ($equipe->save()) {
                 $equipe_id = $equipe->getId();
 
-                // Now create CompositionEquipe records for each developer
+                // Crée maintenant des enregistrements CompositionEquipe pour chaque développeur
                 foreach ($developpeurs as $developerId) {
                     $composition = new CompositionEquipe();
                     $composition->setIdEquipe($equipe_id);
@@ -84,20 +88,19 @@ class CompositionEquipeController extends ControllerBase
         }
     }
 
-
     public function deleteAction()
     {
         if ($this->request->isPost()) {
             $id = $this->request->getPost('id', 'int');
 
-            // Find all records in CompositionEquipe with the given id_equipe
+            // Trouve tous les enregistrements de CompositionEquipe avec l'id_equipe donné
             $compositions = CompositionEquipe::find([
                 'conditions' => 'id_equipe = :id:',
                 'bind' => ['id' => $id]
             ]);
 
             if ($compositions->count() > 0) {
-                // Delete all found records in CompositionEquipe
+                // Supprime tous les enregistrements trouvés dans CompositionEquipe
                 foreach ($compositions as $composition) {
                     if (!$composition->delete()) {
                         echo "La suppression de la composition n'a pas fonctionné.";
@@ -105,11 +108,11 @@ class CompositionEquipeController extends ControllerBase
                     }
                 }
 
-                // Find the corresponding record in equipe
+                // Trouve l'enregistrement correspondant dans la table equipe
                 $equipe = Equipe::findFirstById($id);
 
                 if ($equipe) {
-                    // Delete the record from equipe table
+                    // Supprime l'enregistrement de la table equipe
                     if ($equipe->delete()) {
                         $this->response->redirect('WebAppSeller/composition_equipe/index');
                         $this->view->disable();
@@ -124,10 +127,4 @@ class CompositionEquipeController extends ControllerBase
             }
         }
     }
-
-
-
-
-
-
 }

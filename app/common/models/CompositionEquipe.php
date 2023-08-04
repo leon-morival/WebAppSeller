@@ -135,5 +135,35 @@ class CompositionEquipe extends \Phalcon\Mvc\Model
         $numSelectedDevelopers = count($developerIds);
         return $numSelectedDevelopers >= 1 && $numSelectedDevelopers <= 3;
     }
+    /**
+     * Vérifie si un développeur existe déjà dans une autre équipe avec le même Chef de Projet.
+     *
+     * @param array $developpeurs Les ID des développeurs sélectionnés pour l'équipe en cours de création.
+     * @param int $chef L'ID du Chef de Projet de l'équipe en cours de création.
+     * @return bool Retourne true si l'un des développeurs sélectionnés appartient déjà à une autre équipe avec le même Chef de Projet, sinon retourne false.
+     */
+    public static function developerExists($developpeurs, $chef)
+    {
+        // Parcourt chaque ID de développeur
+        foreach ($developpeurs as $developerId) {
+            // Recherche l'équipe liée au développeur en cours
+            $equipe = self::findFirst([
+                'conditions' => 'id_developpeur = :developerId:',
+                'bind' => [
+                    'developerId' => $developerId,
+                ]
+            ]);
+
+            // Si une équipe liée est trouvée et que son Chef de Projet est identique au Chef de Projet donné,
+            // cela signifie que le développeur fait déjà partie d'une autre équipe avec le même Chef de Projet
+            if ($equipe && $equipe->getEquipe()->getIdChefDeProjet() == $chef) {
+                return true;
+            }
+        }
+
+        // Si aucune équipe n'est trouvée, cela signifie que les développeurs ne font pas partie d'une autre équipe avec le même Chef de Projet
+        return false;
+    }
+
 
 }
