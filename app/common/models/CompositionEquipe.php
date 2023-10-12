@@ -135,6 +135,8 @@ class CompositionEquipe extends \Phalcon\Mvc\Model
         $numSelectedDevelopers = count($developerIds);
         return $numSelectedDevelopers >= 1 && $numSelectedDevelopers <= 3;
     }
+
+
     /**
      * Vérifie si un développeur existe déjà dans une autre équipe avec le même Chef de Projet.
      *
@@ -142,7 +144,7 @@ class CompositionEquipe extends \Phalcon\Mvc\Model
      * @param int $chef L'ID du Chef de Projet de l'équipe en cours de création.
      * @return bool Retourne true si l'un des développeurs sélectionnés appartient déjà à une autre équipe avec le même Chef de Projet, sinon retourne false.
      */
-    public static function developerExists($developpeurs, $chef)
+    public static function developerExists(array $developpeurs,int $chef):bool
     {
         // Parcourt chaque ID de développeur
         foreach ($developpeurs as $developerId) {
@@ -164,6 +166,8 @@ class CompositionEquipe extends \Phalcon\Mvc\Model
         // Si aucune équipe n'est trouvée, cela signifie que les développeurs ne font pas partie d'une autre équipe avec le même Chef de Projet
         return false;
     }
+
+
 
 
 }
