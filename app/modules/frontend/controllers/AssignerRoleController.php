@@ -19,4 +19,19 @@ class AssignerRoleController extends ControllerBase
         $chefDeProjets = ChefDeProjet::find();
         $this->view->setVar('chefdeprojets',$chefDeProjets);
     }
+    public function addDeveloperAction()
+    {
+        if ($this->request->isPost()) {
+            $collaborateurId = $this->request->getPost('collaborateur_id', 'int');
+
+            // Create a new developer and associate it with the collaborator
+            $developer = new Developer();
+            $developer->setCollaborateurId($collaborateurId);
+            // Set other developer properties as needed
+            $developer->save();
+
+            // Redirect or provide a response as needed
+        }
+    }
+
 }

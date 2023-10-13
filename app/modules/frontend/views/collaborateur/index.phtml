@@ -1,38 +1,46 @@
-<!--
+
 <div class="container text-center mt-2">
     <div class="row">
         <div class="col-md-6">
-            <table class="table table-striped
-    table-dark">
+            <table class="table table-striped table-dark">
                 <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">prenom</th>
-                    <th scope="col">nom</th>
-                    <th scope="col">prime d'embauche</th>
-                    <th scope="col">niveau de compétence</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prime d'embauche</th>
+                    <th scope="col">Niveau</th>
+                    <th scope="col" style="width: 300px;">Roles</th>
+                    <th scope="col"><i class="fa-solid fa-trash"></i></th>
 
                 </tr>
                 </thead>
                 <tbody>
-                <?php /*foreach ($this->view->collaborateurs as $collaborateur) { */?>
+                <?php foreach ($this->view->collaborateurs as $collaborateur) { ?>
                     <tr>
-                        <td><?php /*= $collaborateur->getId() */?></td>
-                        <td><?php /*= $collaborateur->getPrenom() */?></td>
-                        <td><?php /*= $collaborateur->getNom() */?></td>
-                        <td><?php /*= $collaborateur->getPrimeEmbauche() */?></td>
-                        <td><?php /*= $collaborateur->translateLevel() */?></td>
-
+                        <td><?= $collaborateur->getPrenom() ?></td>
+                        <td><?= $collaborateur->getNom() ?></td>
+                        <td><?= $collaborateur->getPrimeEmbauche() ?></td>
+                        <td><?= $collaborateur->translateLevel() ?></td>
+                        <td>
+                            <?php if ($collaborateur->isDeveloppeur()) { echo 'Developpeur'; } ?>
+                            <?php if ($collaborateur->isDeveloppeur() && $collaborateur->isChefDeProjet()) { echo ' / '; } ?>
+                            <?php if ($collaborateur->isChefDeProjet()) { echo 'Chef de Projet'; } ?>
+                        </td>
+                        <td>   <form action="<?= $this->url->get('WebAppSeller/collaborateur/delete') ?>" method="post" style="display: inline-block;">
+                                <input type="hidden" name="del" value="<?= $collaborateur->getId() ?>">
+                                <button type="submit" class="btn btn-light"><i class="fa-solid fa-trash"></i></button>
+                            </form></td>
                     </tr>
-                <?php /*} */?>
+                <?php } ?>
                 </tbody>
             </table>
+
         </div>
         <div class="col-md-6">
             <h3 class="text-center">Ajouter un Collaborateur</h3>
             <div class="container text-center mt-2 w-50">
 
-                <form action="<?php /*= $this->url->get('WebAppSeller/collaborateur/save') */?>" method="post">
+                <form action="<?= $this->url->get('WebAppSeller/collaborateur/save') ?>" method="post">
                     <div class="form-group mt4">
                         <label for="nom_collaborateur">Nom :</label>
                         <input type="text" name="nom_collaborateur" placeholder="Exemple : Trinh" class="form-control" id="nom_collaborateur" required>
@@ -42,8 +50,8 @@
                         <input type="text" name="prenom_collaborateur" placeholder="Exemple : Anselm" class="form-control" id="prenom_collaborateur" required>
                     </div>
                     <div class="form-group mt-4 mb-4">
-                        <label for="prime_embauche">Prime d'embauche :</label>
-                        <input type="number" name="prime_embauche" placeholder="Exemple : Anselm" class="form-control" id="prime_embauche"required>
+                        <label for="prime_embauche">Prime d'embauche :</label><!---->
+                        <input type="number" name="prime_embauche" placeholder="Exemple : 50000" class="form-control" id="prime_embauche"required>
                     </div
                     <div class="form-group">
                         <label for="niveau_competence">Niveau de Compétence :</label>
@@ -53,11 +61,23 @@
                             <option value="3">Senior</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary m-3">Valider</button>
+                    <div class="form-group mt-4">
+
+                    <h5>Rôles</h5>    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-outline-primary ">
+                                <input type="checkbox" name="is_developpeur" id="is_developpeur" autocomplete="off" checked> Developpeur
+                            </label>
+                            <label class="btn btn-outline-primary">
+                                <input type="checkbox" name="is_chef_de_projet" id="is_chef_de_projet" autocomplete="off"> Chef de Projet
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary m-3">Ajouter</button>
                 </form>
-        <br>
-                <form action="/WebAppSeller/assigner_role">
-                    <button type="submit" class="btn btn-outline-dark">Prochaine étape : -></button>
+                     <br>
+                <form action="/WebAppSeller/assigner_role" class="mt-5">
+                    <button type="submit" class="btn btn-outline-secondary">Prochaine étape : -></button>
                 </form>
 
             </div>
@@ -66,4 +86,4 @@
     </div>
 
 
-</div>-->
+</div>

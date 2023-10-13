@@ -28,8 +28,8 @@ class CollaborateurController extends ControllerBase
             $prime_embauche = $this->request->getPost('prime_embauche', 'int');
             $niveau_competence = $this->request->getPost('niveau_competence', 'int');
 
-            $collaborateur->setNom($nom);
-            $collaborateur->setPrenom($prenom);
+            $collaborateur->setNom(strtoupper($nom));
+            $collaborateur->setPrenom(strtolower($prenom));
             $collaborateur->setPrimeEmbauche($prime_embauche);
             $collaborateur->setNiveauCompetence($niveau_competence);
 
@@ -42,6 +42,31 @@ class CollaborateurController extends ControllerBase
 
             } else {
                 echo "l'ajout n'a pas fonctionné";
+            }
+        }
+    }
+    public function deleteAction()
+    {
+        if ($this->request->isPost()) {
+            $id = $this->request->getPost('del', 'int');
+
+
+            $collaborateur = Collaborateur::findFirstById($id);
+
+            if ($collaborateur) {
+                // Supprimer le client
+                if ($collaborateur->delete()) {
+
+                    $this->response->redirect('WebAppSeller/collaborateur/index');
+                    $this->view->disable();
+
+                } else {
+                    echo "la suppression n'a pas fonctionné";
+
+                }
+            } else {
+                echo "client non trouver";
+
             }
         }
     }

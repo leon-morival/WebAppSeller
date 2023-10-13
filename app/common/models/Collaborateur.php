@@ -177,7 +177,37 @@ class Collaborateur extends \Phalcon\Mvc\Model
                 return "N/A";
         }
     }
+    /**
+     * Check if the collaborateur is a Developpeur.
+     *
+     * @return bool
+     */
+    public function isDeveloppeur()
+    {
+        // Assuming you have a relationship between Collaborateur and Developpeur
+        $developpeur = Developpeur::findFirst([
+            'conditions' => 'id_collaborateur = :id_collaborateur:',
+            'bind' => ['id_collaborateur' => $this->getId()],
+        ]);
 
+        return $developpeur !== null;
+    }
+
+    /**
+     * Check if the collaborateur is a Chef de Projet.
+     *
+     * @return bool
+     */
+    public function isChefDeProjet()
+    {
+        // Assuming you have a relationship between Collaborateur and ChefDeProjet
+        $chefDeProjet = ChefDeProjet::findFirst([
+            'conditions' => 'id_collaborateur = :id_collaborateur:',
+            'bind' => ['id_collaborateur' => $this->getId()],
+        ]);
+
+        return $chefDeProjet !== null;
+    }
     /**
      * Initialize method for model.
      */
