@@ -26,10 +26,12 @@
                             <?php if ($collaborateur->isDeveloppeur() && $collaborateur->isChefDeProjet()) { echo ' / '; } ?>
                             <?php if ($collaborateur->isChefDeProjet()) { echo 'Chef de Projet'; } ?>
                         </td>
-                        <td>   <form action="<?= $this->url->get('WebAppSeller/collaborateur/delete') ?>" method="post" style="display: inline-block;">
+                        <td>
+                            <form action="<?= $this->url->get('WebAppSeller/collaborateur/delete') ?>" method="post" style="display: inline-block;">
                                 <input type="hidden" name="del" value="<?= $collaborateur->getId() ?>">
                                 <button type="submit" class="btn btn-light"><i class="fa-solid fa-trash"></i></button>
-                            </form></td>
+                            </form>
+                        </td>
                     </tr>
                 <?php } ?>
                 </tbody>
@@ -65,10 +67,10 @@
 
                     <h5>Rôles</h5>    <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-outline-primary ">
-                                <input type="checkbox" name="is_developpeur" id="is_developpeur" autocomplete="off" checked> Developpeur
+                                <input type="checkbox" name="roles[]" value="developpeur"  id="is_developpeur" autocomplete="off" checked> Developpeur
                             </label>
                             <label class="btn btn-outline-primary">
-                                <input type="checkbox" name="is_chef_de_projet" id="is_chef_de_projet" autocomplete="off"> Chef de Projet
+                                <input type="checkbox" name="roles[]" value="chef_de_projet" id="is_chef_de_projet" autocomplete="off"> Chef de Projet
                             </label>
                         </div>
                     </div>

@@ -27,6 +27,14 @@ class CollaborateurController extends ControllerBase
             $prenom = $this->request->getPost('prenom_collaborateur', 'string');
             $prime_embauche = $this->request->getPost('prime_embauche', 'int');
             $niveau_competence = $this->request->getPost('niveau_competence', 'int');
+            /*Recupere valeur case à cocher*/
+
+            $roles = $this->request->getPost('roles');
+
+            // Verifie si les valeur developpeur et chef de projet existe dans le tableau
+            $is_developpeur = in_array('developpeur', $roles) ? 1 : 0;
+            $is_chef_de_projet = in_array('chef_de_projet', $roles) ? 1 : 0;
+
 
             $collaborateur->setNom(strtoupper($nom));
             $collaborateur->setPrenom(strtolower($prenom));
@@ -35,14 +43,14 @@ class CollaborateurController extends ControllerBase
 
 
             // Enregistrer le client
-            if ($collaborateur->save()) {
+           /* if ($collaborateur->save()) {
 
                 $this->response->redirect('WebAppSeller/collaborateur/index');
                 $this->view->disable();
 
             } else {
                 echo "l'ajout n'a pas fonctionné";
-            }
+            }*/
         }
     }
     public function deleteAction()
