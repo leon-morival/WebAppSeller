@@ -41,6 +41,10 @@ class Collaborateur extends \Phalcon\Mvc\Model
      */
     protected $niveau_competence;
 
+    const _COMP_STAGIAIRE_= 1;
+    const _COMP_JUNIOR_= 2;
+    const _COMP_SENIOR_= 3;
+
     /**
      * Method to set the value of field prenom
      *
@@ -154,6 +158,24 @@ class Collaborateur extends \Phalcon\Mvc\Model
     public function getNiveauCompetence()
     {
         return $this->niveau_competence;
+    }
+
+    public function translateLevel()
+    {
+        // restituer le libelle correspondant à un niveau de compétence
+        switch ($this->getNiveauCompetence()){
+            case self::_COMP_STAGIAIRE_:
+                return "Stagiaire";
+
+            case self::_COMP_JUNIOR_:
+                return "Junior";
+
+            case self::_COMP_SENIOR_:
+                return "Senior";
+
+            default:
+                return "N/A";
+        }
     }
 
     /**

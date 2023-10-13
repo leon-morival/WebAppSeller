@@ -69,6 +69,7 @@ class ClientController extends ControllerBase
     {
 
         if ($this->request->isPost()) {
+            echo "test";
             $client = new Client();
 
             $raison_sociale = $this->request->getPost('raison_sociale', 'string');

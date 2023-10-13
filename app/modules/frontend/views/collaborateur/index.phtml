@@ -1,27 +1,67 @@
-<div class="container text-center mt-2">
-    <table class="table table-striped
-    table-dark">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">prenom</th>
-            <th scope="col">nom</th>
-            <th scope="col">prime d'embauche</th>
-            <th scope="col">niveau de compétence</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($this->view->collaborateurs as $collaborateur) { ?>
-            <tr>
-                <td><?= $collaborateur->getId() ?></td>
-                <td><?= $collaborateur->getPrenom() ?></td>
 
-                <td><?= $collaborateur->getNom() ?></td>
-                <td><?= $collaborateur->getPrimeEmbauche() ?></td>
-                <td><?= $collaborateur->getNiveauCompetence() ?></td>
-            </tr>
-        <?php } ?>
-        </tbody>
-    </table>
+<div class="container text-center mt-2">
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-striped
+    table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">prenom</th>
+                    <th scope="col">nom</th>
+                    <th scope="col">prime d'embauche</th>
+                    <th scope="col">niveau de compétence</th>
+                    <th scope="col">Sélectionner un développeur</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($this->view->collaborateurs as $collaborateur) { ?>
+                    <tr>
+                        <td><?= $collaborateur->getId() ?></td>
+                        <td><?= $collaborateur->getPrenom() ?></td>
+
+                        <td><?= $collaborateur->getNom() ?></td>
+                        <td><?= $collaborateur->getPrimeEmbauche() ?></td>
+                        <td><?= $collaborateur->translateLevel() ?></td>
+                        <td><button class="btn btn-light">Select</button></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h3 class="text-center">Ajouter un Collaborateur</h3>
+            <div class="container text-center mt-2 w-50">
+
+                <form action="<?= $this->url->get('WebAppSeller/collaborateur/save') ?>" method="post">
+                    <div class="form-group mt4">
+                        <label for="nom_collaborateur">Nom :</label>
+                        <input type="text" name="nom_collaborateur" placeholder="Exemple : Trinh" class="form-control" id="nom_collaborateur" required>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="prenom_collaborateur">Prénom :</label>
+                        <input type="text" name="prenom_collaborateur" placeholder="Exemple : Anselm" class="form-control" id="prenom_collaborateur" required>
+                    </div>
+                    <div class="form-group mt-4 mb-4">
+                        <label for="prime_embauche">Prime d'embauche :</label>
+                        <input type="number" name="prime_embauche" placeholder="Exemple : Anselm" class="form-control" id="prime_embauche"required>
+                    </div
+                    <div class="form-group">
+                        <label for="niveau_competence">Niveau de Compétence :</label>
+                        <select name="niveau_competence" class="form-control" id="niveau_competence">
+                            <option value="1">Stagiaire</option>
+                            <option value="2">Junior</option>
+                            <option value="3">Senior</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary m-3">Valider</button>
+                </form>
+                <h3>Développeur Sélectionner : </h3>
+                <button class="btn btn-outline-dark">Prochaine étape : -></button>
+            </div>
+
+        </div>
+    </div>
+
 
 </div>

@@ -132,7 +132,7 @@ class CompositionEquipeController extends ControllerBase
 
     public function selectAction(){
         if($this->request->isPost()){
-            echo "Test";
+            $this->response->redirect("WebAppSeller/composition_equipe/index");
         }
     }
 }
