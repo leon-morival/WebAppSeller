@@ -1,4 +1,4 @@
-
+<!--
 <div class="container text-center mt-2">
     <div class="row">
         <div class="col-md-6">
@@ -15,16 +15,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($this->view->collaborateurs as $collaborateur) { ?>
+                <?php /*foreach ($this->view->collaborateurs as $collaborateur) { */?>
                     <tr>
-                        <td><?= $collaborateur->getId() ?></td>
-                        <td><?= $collaborateur->getPrenom() ?></td>
-                        <td><?= $collaborateur->getNom() ?></td>
-                        <td><?= $collaborateur->getPrimeEmbauche() ?></td>
-                        <td><?= $collaborateur->translateLevel() ?></td>
+                        <td><?php /*= $collaborateur->getId() */?></td>
+                        <td><?php /*= $collaborateur->getPrenom() */?></td>
+                        <td><?php /*= $collaborateur->getNom() */?></td>
+                        <td><?php /*= $collaborateur->getPrimeEmbauche() */?></td>
+                        <td><?php /*= $collaborateur->translateLevel() */?></td>
 
                     </tr>
-                <?php } ?>
+                <?php /*} */?>
                 </tbody>
             </table>
         </div>
@@ -32,7 +32,7 @@
             <h3 class="text-center">Ajouter un Collaborateur</h3>
             <div class="container text-center mt-2 w-50">
 
-                <form action="<?= $this->url->get('WebAppSeller/collaborateur/save') ?>" method="post">
+                <form action="<?php /*= $this->url->get('WebAppSeller/collaborateur/save') */?>" method="post">
                     <div class="form-group mt4">
                         <label for="nom_collaborateur">Nom :</label>
                         <input type="text" name="nom_collaborateur" placeholder="Exemple : Trinh" class="form-control" id="nom_collaborateur" required>
@@ -66,4 +66,4 @@
     </div>
 
 
-</div>
+</div>-->
