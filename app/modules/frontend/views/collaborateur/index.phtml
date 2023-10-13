@@ -11,7 +11,7 @@
                     <th scope="col">nom</th>
                     <th scope="col">prime d'embauche</th>
                     <th scope="col">niveau de compétence</th>
-                    <th scope="col">Sélectionner un développeur</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -19,11 +19,10 @@
                     <tr>
                         <td><?= $collaborateur->getId() ?></td>
                         <td><?= $collaborateur->getPrenom() ?></td>
-
                         <td><?= $collaborateur->getNom() ?></td>
                         <td><?= $collaborateur->getPrimeEmbauche() ?></td>
                         <td><?= $collaborateur->translateLevel() ?></td>
-                        <td><button class="btn btn-light">Select</button></td>
+
                     </tr>
                 <?php } ?>
                 </tbody>
@@ -56,8 +55,11 @@
                     </div>
                     <button type="submit" class="btn btn-primary m-3">Valider</button>
                 </form>
-                <h3>Développeur Sélectionner : </h3>
-                <button class="btn btn-outline-dark">Prochaine étape : -></button>
+        <br>
+                <form action="/WebAppSeller/assigner_role">
+                    <button type="submit" class="btn btn-outline-dark">Prochaine étape : -></button>
+                </form>
+
             </div>
 
         </div>
