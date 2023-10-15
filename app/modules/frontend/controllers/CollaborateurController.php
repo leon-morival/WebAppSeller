@@ -6,6 +6,7 @@ namespace WebAppSeller\Modules\Frontend\Controllers;
 use WebAppSeller\Models\ChefDeProjet;
 use WebAppSeller\Models\Client;
 use WebAppSeller\Models\Collaborateur;
+use WebAppSeller\Models\CompositionEquipe;
 use WebAppSeller\Models\Developpeur;
 
 class CollaborateurController extends ControllerBase
@@ -50,15 +51,18 @@ class CollaborateurController extends ControllerBase
             if ($collaborateur->save()) {
                 if($is_developpeur){
                     $developpeur = new Developpeur();
+                    $competence = $this->request->getPost('competence');
+                    $indice_production = $this->request->getPost('indice_production', 'int');
                     $developpeur->setIdCollaborateur($collaborateur->getId());
-                    $developpeur->setCompetence(3);
-                    $developpeur->setIndiceProduction(2);
+                    $developpeur->setCompetence($competence);
+                    $developpeur->setIndiceProduction($indice_production);
                     $developpeur->save();
                 }
                 if($is_chef_de_projet){
                     $chef_de_projet = new ChefDeProjet();
+                    $boost_production = $this->request->getPost('boost_production','int');
                     $chef_de_projet->setIdCollaborateur($collaborateur->getId());
-                    $chef_de_projet->setBoostProduction(3);
+                    $chef_de_projet->setBoostProduction($boost_production);
 
                     $chef_de_projet->save();
                 }
@@ -82,13 +86,25 @@ class CollaborateurController extends ControllerBase
             ]);
 
             if ($collaborateur) {
-                // Delete related Developpeur records
                 $developpeurs = Developpeur::find([
                     'conditions' => 'id_collaborateur = :id:',
                     'bind' => ['id' => $id]
                 ]);
-
                 foreach ($developpeurs as $developpeur) {
+                    // Find and delete CompositionEquipe records where id_developpeur matches the current Developpeur's id
+                    $compositions = CompositionEquipe::find([
+                        'conditions' => 'id_developpeur = :id_developpeur:',
+                        'bind' => ['id_developpeur' => $developpeur->getId()],
+                    ]);
+
+                    foreach ($compositions as $composition) {
+                        if (!$composition->delete()) {
+                            echo "La suppression de la composition n'a pas fonctionné.";
+                            return;
+                        }
+                    }
+
+                    // Finally, delete the Developpeur record
                     if (!$developpeur->delete()) {
                         echo "La suppression du développeur n'a pas fonctionné.";
                         return;
