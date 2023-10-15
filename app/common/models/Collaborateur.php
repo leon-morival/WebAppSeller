@@ -182,7 +182,7 @@ class Collaborateur extends \Phalcon\Mvc\Model
      *
      * @return bool
      */
-    public function isDeveloppeur()
+    public function isDeveloppeur():bool
     {
         // Assuming you have a relationship between Collaborateur and Developpeur
         $developpeur = Developpeur::findFirst([
@@ -198,7 +198,7 @@ class Collaborateur extends \Phalcon\Mvc\Model
      *
      * @return bool
      */
-    public function isChefDeProjet()
+    public function isChefDeProjet():bool
     {
         // Assuming you have a relationship between Collaborateur and ChefDeProjet
         $chefDeProjet = ChefDeProjet::findFirst([
@@ -208,6 +208,8 @@ class Collaborateur extends \Phalcon\Mvc\Model
 
         return $chefDeProjet !== null;
     }
+
+
     /**
      * Initialize method for model.
      */
