@@ -18,15 +18,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($this->view->collaborateurs as $collaborateur) { ?>
+                <?php use WebAppSeller\Models\Developpeur;
+
+                foreach ($this->view->collaborateurs as $collaborateur) { ?>
                     <tr>
                         <td><?= $collaborateur->getPrenom() ?></td>
                         <td><?= $collaborateur->getNom() ?></td>
                         <td><?= $collaborateur->getPrimeEmbauche() ?></td>
                         <td><?= $collaborateur->translateLevel() ?></td>
                         <td>
-                            <?php if ($collaborateur->isDeveloppeur()) { echo 'Developpeur'; } ?>
-                            <?php if ($collaborateur->isDeveloppeur() && $collaborateur->isChefDeProjet()) { echo ' / '; } ?>
+                            <?php if ($collaborateur->isDeveloppeur()) {
+                                $developpeur = Developpeur::findFirst([
+                                    'conditions' => 'id_collaborateur = :id:',
+                                    'bind' => ['id' => $collaborateur->getId()]
+                                ]);
+                                echo 'Developpeur '; echo $developpeur->translateCompetence(); } ?>
+
+                            <?php if ($collaborateur->isDeveloppeur() && $collaborateur->isChefDeProjet()) {echo "<br>"; } ?>
                             <?php if ($collaborateur->isChefDeProjet()) { echo 'Chef de Projet'; } ?>
                         </td>
                         <td class="p-2">
@@ -46,15 +54,16 @@
             <div class="container text-center mt-2 w-50">
 
                 <form action="<?= $this->url->get('WebAppSeller/collaborateur/save') ?>" method="post">
-                    <div class="form-group mt4">
-                        <label for="nom_collaborateur">Nom :</label>
-                        <input type="text" name="nom_collaborateur" placeholder="Exemple : Trinh" class="form-control" id="nom_collaborateur" required>
-                    </div>
-                    <div class="form-group mt-4">
+
+                    <div class="form-group ">
                         <label for="prenom_collaborateur">Prénom :</label>
                         <input type="text" name="prenom_collaborateur" placeholder="Exemple : Anselm" class="form-control" id="prenom_collaborateur" required>
                     </div>
-                    <div class="form-group mt-4 mb-4">
+                    <div class="form-group mt-2">
+                        <label for="nom_collaborateur">Nom :</label>
+                        <input type="text" name="nom_collaborateur" placeholder="Exemple : Trinh" class="form-control" id="nom_collaborateur" required>
+                    </div>
+                    <div class="form-group mt-2 mb-2">
                         <label for="prime_embauche">Prime d'embauche :</label><!---->
                         <input type="number" name="prime_embauche" placeholder="Exemple : 50000" class="form-control" id="prime_embauche"required>
                     </div
@@ -66,9 +75,10 @@
                             <option value="3">Senior</option>
                         </select>
                     </div>
-                    <div class="form-group mt-4">
 
-                        <h5>Rôles</h5>
+                    <div class="form-group mt-2">
+
+                        <h6>Rôle(s) du collaborateur</h6>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-outline-primary ">
                                 <input type="checkbox" name="roles[]" value="developpeur"  id="is_developpeur" autocomplete="off" > Developpeur
@@ -78,10 +88,22 @@
                             </label>
                         </div>
                     </div>
+                    <div class="form-group mt-2">
+                        <label for="indice_production">Indice de production :</label>
+                        <input type="number" name="indice_production" placeholder="Exemple : 5" class="form-control" id="indice_production" min ="1" max="10" required>
 
+                    </div>
+                    <div class="form-group">
+                        <label for="competence">Compétence :</label>
+                        <select name="competence" class="form-control" id="competence">
+                            <option value="1">BDD</option>
+                            <option value="2">Back End</option>
+                            <option value="3">Front End</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary m-3">Ajouter</button>
                 </form>
-                     <br>
+                <br>
 
 
             </div>

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace WebAppSeller\Modules\Frontend\Controllers;
 
 use WebAppSeller\Models\ChefDeProjet;
-use WebAppSeller\Models\Client;
 use WebAppSeller\Models\Collaborateur;
 use WebAppSeller\Models\CompositionEquipe;
 use WebAppSeller\Models\Developpeur;
@@ -18,6 +17,11 @@ class CollaborateurController extends ControllerBase
 
 
         $this->view->setVar('collaborateurs', $collaborateurs);
+        $developpeurs = Developpeur::find();
+        foreach ($developpeurs as $developpeur) {
+            $developpeur->competence_label = $developpeur->translateCompetence();
+        }
+        $this->view->setVar('developpeurs', $developpeurs);
     }
     public function saveAction()
     {
@@ -57,6 +61,7 @@ class CollaborateurController extends ControllerBase
                     $developpeur->setCompetence($competence);
                     $developpeur->setIndiceProduction($indice_production);
                     $developpeur->save();
+
                 }
                 if($is_chef_de_projet){
                     $chef_de_projet = new ChefDeProjet();
@@ -91,7 +96,6 @@ class CollaborateurController extends ControllerBase
                     'bind' => ['id' => $id]
                 ]);
                 foreach ($developpeurs as $developpeur) {
-                    // Find and delete CompositionEquipe records where id_developpeur matches the current Developpeur's id
                     $compositions = CompositionEquipe::find([
                         'conditions' => 'id_developpeur = :id_developpeur:',
                         'bind' => ['id_developpeur' => $developpeur->getId()],

@@ -1,6 +1,5 @@
 <?php
 namespace WebAppSeller\Models;
-use WebAppSeller\Models\Collaborateur;
 class Developpeur extends \Phalcon\Mvc\Model
 {
 
@@ -33,7 +32,9 @@ class Developpeur extends \Phalcon\Mvc\Model
      * @Column(column="id_collaborateur", type="integer", nullable=false)
      */
     protected $id_collaborateur;
-
+    const _COMP_BDD_ = 1;
+    const _COMP_BACKEND_= 2;
+    const _COMP_FRONTEND_= 3;
     /**
      * Method to set the value of field competence
      *
@@ -125,7 +126,22 @@ class Developpeur extends \Phalcon\Mvc\Model
     {
         return $this->id_collaborateur;
     }
+    public function translateCompetence()
+    {
+        // restituer le libelle correspondant à une compétence
+        switch ($this->getCompetence()){
+            case self::_COMP_BDD_:
+                return "BDD";
+            case self::_COMP_BACKEND_:
+                return "BackEnd";
 
+            case self::_COMP_FRONTEND_:
+                return "FrontEnd";
+
+            default:
+                return "N/A";
+        }
+    }
     /**
      * Initialize method for model.
      */
