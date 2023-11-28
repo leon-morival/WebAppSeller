@@ -128,11 +128,24 @@ class Equipe extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
-//    Fonction de vérification si une équipe existe déjà
-    public static function teamExists($team_name)
+
+
+    /**
+     * Vérfie si une équipe avec le même nom existe déjà
+     *
+     * @param String $teamName
+     * @return bool
+     */
+    public static function teamExists(String $teamName): bool
     {
-        return self::findFirstByLibelle($team_name);
+        $equipe = self::findFirst([
+            'conditions' => 'libelle = :teamName:',
+            'bind' => ['teamName' => $teamName]
+        ]);
+
+        return (bool)$equipe;
     }
+
 
 
 }

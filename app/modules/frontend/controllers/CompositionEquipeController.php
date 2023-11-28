@@ -16,6 +16,7 @@ class CompositionEquipeController extends ControllerBase
         // Récupère toutes les compositions (équipes) ainsi que leurs développeurs associés
         $equipes = CompositionEquipe::find(['with' => 'Developpeurs']);
 
+        
         // Regroupe les développeurs par nom d'équipe
         $groupedCompositions = [];
         foreach ($equipes as $equipe) {

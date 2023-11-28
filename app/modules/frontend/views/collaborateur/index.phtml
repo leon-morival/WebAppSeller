@@ -88,19 +88,38 @@
                             </label>
                         </div>
                     </div>
-                    <div class="form-group mt-2">
-                        <label for="indice_production">Indice de production :</label>
-                        <input type="number" name="indice_production" placeholder="Exemple : 5" class="form-control" id="indice_production" min ="1" max="10" required>
+<div class="row">
+    <div class="col-6 "">
+    <div id="indice_production_field">
 
-                    </div>
-                    <div class="form-group">
-                        <label for="competence">Compétence :</label>
-                        <select name="competence" class="form-control" id="competence">
-                            <option value="1">BDD</option>
-                            <option value="2">Back End</option>
-                            <option value="3">Front End</option>
-                        </select>
-                    </div>
+
+        <div class="form-group mt-2">
+
+            <label for="indice_production">Indice de production :</label>
+            <input type="number" name="indice_production" placeholder="Exemple : 5" class="form-control" id="indice_production" min ="1" max="10" required>
+
+        </div>
+        <div class="form-group">
+            <label for="competence">Compétence :</label>
+            <select name="competence" class="form-control" id="competence">
+                <option value="1">BDD</option>
+                <option value="2">Back End</option>
+                <option value="3">Front End</option>
+            </select>
+        </div>
+    </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group mt-2 " id="boost_production_field">
+
+            <label for="boost_production">Boost de production :</label>
+            <input type="number" name="boost_production" placeholder="Exemple : 2" class="form-control" id="boost_production" min ="1" max="10" required>
+
+        </div>
+    </div>
+</div>
+
+
                     <button type="submit" class="btn btn-primary m-3">Ajouter</button>
                 </form>
                 <br>
@@ -110,12 +129,12 @@
             <div class="btn-group justify-content-center mb-5 mt-2">
                 <form action="/WebAppSeller/" >
                     <button type="submit" class="btn btn-outline-warning m-1">
-                       <i class="fas fa-arrow-left"></i>  Etape précédente<!-- Font Awesome left arrow icon -->
+                       <i class="fas fa-arrow-left"></i>  Etape précédente
                     </button>
                 </form>
                 <form action="/WebAppSeller/composition_equipe" class="m-1">
                     <button type="submit" class="btn btn-outline-warning">
-                        Prochaine étape <i class="fas fa-arrow-right"></i> <!-- Font Awesome right arrow icon -->
+                        Prochaine étape <i class="fas fa-arrow-right"></i>
                     </button>
                 </form>
             </div>
@@ -125,5 +144,31 @@
 
     </div>
 
+</div><script>
+    // Fonction pour gérer l'affichage conditionnel et les champs requis du formulaire
+    function gestionRoles() {
+        var isDeveloppeur = document.getElementById('is_developpeur').checked;
+        var isChefDeProjet = document.getElementById('is_chef_de_projet').checked;
 
-</div>
+        // Afficher ou cacher le champ d'indice de production en fonction de la case Developpeur
+        var indiceProductionField = document.getElementById('indice_production_field');
+        indiceProductionField.style.display = isDeveloppeur ? 'block' : 'none';
+        // Rendre le champ requis uniquement s'il est affiché
+        indiceProductionField.required = isDeveloppeur;
+
+
+        // Afficher ou cacher le champ de boost de production en fonction de la case Chef de Projet
+        var boostProductionField = document.getElementById('boost_production_field');
+        boostProductionField.style.display = isChefDeProjet ? 'block' : 'none';
+        // Rendre le champ requis uniquement s'il est affiché
+        boostProductionField.required = isChefDeProjet;
+    }
+
+    // Attacher la fonction à l'événement de changement des cases à cocher
+    document.getElementById('is_developpeur').addEventListener('change', gestionRoles);
+    document.getElementById('is_chef_de_projet').addEventListener('change', gestionRoles);
+
+    // Appeler la fonction une fois au chargement de la page pour définir l'état initial
+    gestionRoles();
+</script>
+
