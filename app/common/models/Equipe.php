@@ -146,6 +146,27 @@ class Equipe extends \Phalcon\Mvc\Model
         return (bool)$equipe;
     }
 
+    public static function calculateAverage($compositions) : float {
+        $averageProduction = 0;
+        $totalDevelopers = count($compositions);
+        $totalBoost = 0;
+
+        foreach ($compositions as $composition) {
+            $averageProduction += $composition->getDeveloppeur()->getIndiceProduction();
+            $totalBoost += $composition->getEquipe()->getChefDeProjet()->getBoostProduction();
+        }
+
+        // Calculer la moyenne
+        if ($totalDevelopers > 0) {
+            $averageProduction /= $totalDevelopers;
+        }
+
+        // Ajouter le boost de production total au chef de projet
+        $averageProduction += ($averageProduction * $totalBoost) / (100 * $totalDevelopers);
+
+        return round($averageProduction, 2);
+    }
+
 
 
 }

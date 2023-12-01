@@ -2,18 +2,18 @@
 
 <div class="row mt-5">
 
-    <div class="col-md-6">
+    <div class="col-md-7 ">
 
 
-        <div class="container mt-2">
-            <div class="row ">
+        <div class="container m-2">
+            <div class="row m-2">
                 <?php foreach ($this->view->groupedCompositions as $teamName => $compositions) { ?>
                     <?php if (!empty($compositions)) { ?>
-
-
-                        <div class="col-md-6 mb-4 ">
+                        <div class="col-md-6 p-4 ">
                             <div class="card bg-dark h-100 shadow ">
-
+                                <span class="position-absolute top-0 start-100 translate-middle badge bg-secondary border border-light fs-6">
+                                <?= $this->view->groupedAverages[$teamName] ?> %
+                                </span>
                                 <div class="row">
                                     <div class="text-center col-6">
                                         <a href="<?= $this->url->get('WebAppSeller/projet') ?>" class="btn btn-info w-100 d-block">Selectionner</a>
@@ -26,29 +26,24 @@
                                         </form>
                                     </div>
                                 </div>
-
-
-
-                                
                                 <div class="card-body text-white text-center">
                                     <h1 class="card-title pb-3 border-bottom"><?= $teamName ?></h1>
 
-                                    <h4 class="card-subtitle pb-3 pt-3 border-bottom">Chef de projet : 
+                                    <h4 class="card-subtitle pb-3 pt-3 border-bottom">Chef de projet : <br>
                                         <?= $compositions[0]->getEquipe()->getChefDeProjet()->getCollaborateur()->getPrenom() ?>
+                                        <span class="badge bg-primary"> <?= $compositions[0]->getEquipe()->getChefDeProjet()->getBoostProduction() ?> %</span>
                                     </h4>
 
-                                    <h3 class="card-subtitle mb-3 pt-3">Développeurs:</h3>
+                                    <h5 class="card-subtitle mb-3 pt-3">Développeurs:</h5>
                                     <ul class="list-group">
                                         <?php foreach ($compositions as $composition) { ?>
                                             <li class="list-group-item">
                                                 <?= $composition->getDeveloppeur()->getCollaborateur()->getPrenom() ?>
+                                                <span class="badge bg-primary"><?= $composition->getDeveloppeur()->getIndiceProduction() ?> %</span>
                                             </li>
                                         <?php } ?>
                                     </ul>
                                 </div>
-
-
-
                             </div>
                         </div>
                     <?php } ?>
@@ -61,18 +56,18 @@
     </div>
 
 
-    <div class="col-md-6">
+    <div class="col-md-5">
 
     <h1 class="text-center "><strong>Composez votre équipe</strong></h1>
     <div class="container text-center mt-2 w-75">
         <form action="<?= $this->url->get('WebAppSeller/composition_equipe/save') ?>" method="post">
-            <div class="form-group">
-                <h2 for="team_name">Nom de l'équipe</h2>
+            <div class="form-group mt-3">
+                <h2 for="team_name">Nom de l'équipe :</h2>
                 <input type="text" class="form-control bg-light" name="team_name" id="team_name" required>
             </div>
     <!--        Chef d'équipe input-->
-            <div class="form-group">
-                <h3 for="chef">Choisissez votre chef d'équipe</h3>
+            <div class="form-group mt-3">
+                <h3 for="chef">Chef de projet :</h3>
                 <select name="chef" class="form-control bg-light" id="chef">
                     <?php foreach ($this->view->chefdeprojets as $chefdeprojet) { ?>
                         <option value="<?= $chefdeprojet->getId() ?>"><?= $chefdeprojet->getCollaborateur()->getPrenom() ?></option>
@@ -81,8 +76,8 @@
             </div>
 
             <!-- Multiple select for developers -->
-            <div class="form-group">
-                <h3 for="chef">Choisissez vos membres</h3>
+            <div class="form-group mt-3">
+                <h3 for="chef">Membres de l'équipe:</h3>
                 <select name="developpeur[]" class="form-control bg-light" id="chef" multiple="multiple">
                     <?php foreach ($this->view->developpeurs as $developpeur) { ?>
                         <option value="<?= $developpeur->getId() ?>"><?= $developpeur->getCollaborateur()->getPrenom() ?></option>
@@ -94,5 +89,19 @@
         </form>
 
     </div>
+
+
 </div>
+    <div class="btn-group justify-content-center mb-5 mt-2">
+        <form action="/WebAppSeller/collaborateur" >
+            <button type="submit" class="btn btn-outline-warning m-1">
+                <i class="fas fa-arrow-left"></i>  Etape précédente
+            </button>
+        </form>
+        <form action="/WebAppSeller/projet" class="m-1">
+            <button type="submit" class="btn btn-outline-warning">
+                Prochaine étape <i class="fas fa-arrow-right"></i>
+            </button>
+        </form>
+    </div>
 </div>

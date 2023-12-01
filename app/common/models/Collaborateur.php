@@ -160,9 +160,13 @@ class Collaborateur extends \Phalcon\Mvc\Model
         return $this->niveau_competence;
     }
 
-    public function translateLevel()
+    /**
+     * Traduit le niveau de compétence en une chaine de caractère
+     *
+     * @return String
+     */
+    public function translateLevel() : String
     {
-        // restituer le libelle correspondant à un niveau de compétence
         switch ($this->getNiveauCompetence()){
             case self::_COMP_STAGIAIRE_:
                 return "Stagiaire";
@@ -177,6 +181,8 @@ class Collaborateur extends \Phalcon\Mvc\Model
                 return "N/A";
         }
     }
+
+
     /**
      * Check if the collaborateur is a Developpeur.
      *

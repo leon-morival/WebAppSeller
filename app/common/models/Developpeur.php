@@ -126,7 +126,7 @@ class Developpeur extends \Phalcon\Mvc\Model
     {
         return $this->id_collaborateur;
     }
-    public function translateCompetence()
+    public function translateCompetence() : String
     {
         // restituer le libelle correspondant à une compétence
         switch ($this->getCompetence()){

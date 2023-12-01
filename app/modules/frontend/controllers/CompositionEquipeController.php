@@ -13,31 +13,44 @@ class CompositionEquipeController extends ControllerBase
 {
     public function indexAction()
     {
-        // Récupère toutes les compositions (équipes) ainsi que leurs développeurs associés
+        // Récupérer toutes les compositions avec les développeurs associés
         $equipes = CompositionEquipe::find(['with' => 'Developpeurs']);
 
-        
-        // Regroupe les développeurs par nom d'équipe
+        // Regrouper les compositions par nom d'équipe
         $groupedCompositions = [];
         foreach ($equipes as $equipe) {
             $teamName = $equipe->getEquipe()->getLibelle();
             $groupedCompositions[$teamName][] = $equipe;
         }
 
-        $this->view->setVar('groupedCompositions', $groupedCompositions);
+        // Calculer les moyennes
+        $groupedAverages = [];
+        foreach ($groupedCompositions as $teamName => $compositions) {
+            $totalDevelopers = count($compositions);
+            $averageProduction = $totalDevelopers > 0 ? array_sum(array_map(function ($composition) {
+                    return $composition->getDeveloppeur()->getIndiceProduction();
+                }, $compositions)) / $totalDevelopers : 0;
 
-        // Équipe
-        $equipe = Equipe::find();
-        $this->view->setVar('equipes', $equipe);
+            $totalBoost = array_sum(array_map(function ($composition) {
+                return $composition->getEquipe()->getChefDeProjet()->getBoostProduction();
+            }, $compositions));
 
-        // Développeur
-        $developpeurs = Developpeur::find();
-        $this->view->setVar('developpeurs', $developpeurs);
+            $averageProduction += ($averageProduction * $totalBoost) / (100 * $totalDevelopers);
 
-        // Chef de Projet
-        $chefDeProjets = ChefDeProjet::find();
-        $this->view->setVar('chefdeprojets', $chefDeProjets);
+            $groupedAverages[$teamName] = round($averageProduction, 2);
+        }
+
+        // Définir les variables de vue
+        $this->view->setVars([
+            'groupedCompositions' => $groupedCompositions,
+            'groupedAverages' => $groupedAverages,
+            'equipes' => Equipe::find(),
+            'developpeurs' => Developpeur::find(),
+            'chefdeprojets' => ChefDeProjet::find(),
+        ]);
     }
+
+
 
 
 
@@ -47,6 +60,7 @@ class CompositionEquipeController extends ControllerBase
             $equipe = new Equipe();
 
             $team_name = $this->request->getPost('team_name', 'string');
+
             $chef = $this->request->getPost('chef', 'int');
             $developpeurs = $this->request->getPost('developpeur');
 
